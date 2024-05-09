@@ -82,7 +82,7 @@ class AdditiveInfo extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 16.h),
                                 child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 10.w)
+                                    margin: EdgeInsets.symmetric(horizontal: 10.w),
                                     decoration: BoxDecoration(
                                       color: Tcolor.additiveHolder,
                                       
@@ -139,7 +139,7 @@ class AdditiveInfo extends StatelessWidget {
                         Get.snackbar(
                             colorText: Tcolor.white,
                             backgroundColor: Tcolor.Secondary,
-                            "You need network comnnection to add additives",
+                            "Something went wrong",
                             "please fill all fields");
                       }
                     },

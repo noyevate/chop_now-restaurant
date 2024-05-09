@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
     return Container(
       width: width,
       height: 200.h,
-      padding: EdgeInsets.fromLTRB(24.w, 80.h, 24.w, 0),
+      padding: EdgeInsets.fromLTRB(24.w, 70.h, 24.w, 0),
       color: Tcolor.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

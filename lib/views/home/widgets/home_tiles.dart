@@ -3,6 +3,7 @@
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/home_tile.dart';
 import 'package:chopnow_restaurant/views/add_foods/add_foods.dart';
+import 'package:chopnow_restaurant/views/create_restaurant/create_restaurant.dart';
 import 'package:chopnow_restaurant/views/food/food_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,7 +48,9 @@ class HomeTiles extends StatelessWidget {
               iconPath:
                   "assets/img/pizza-svgrepo-com.svg"),
           HomeTile(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => const CreateRestaurant());
+              },
               title: "Deliveries",
               iconPath: "assets/img/delivery-transport-svgrepo-com.svg"),
         ],

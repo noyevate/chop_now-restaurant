@@ -28,6 +28,7 @@ class FoodList extends StatelessWidget {
               final food = foods[i];
               return FoodTile(food: food);
             }
+            
           ),
         ),
       ),

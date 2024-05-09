@@ -4,6 +4,8 @@ import 'package:chopnow_restaurant/common/background_container.dart';
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/custom_appbar.dart';
 import 'package:chopnow_restaurant/common/size.dart';
+import 'package:chopnow_restaurant/controlllers/login_controller.dart';
+import 'package:chopnow_restaurant/views/auth/login_page.dart';
 import 'package:chopnow_restaurant/views/home/widgets/orders/cancelled_orders.dart';
 import 'package:chopnow_restaurant/views/home/widgets/orders/delivered_orders.dart';
 import 'package:chopnow_restaurant/views/home/widgets/orders/deliveries.dart';
@@ -13,7 +15,10 @@ import 'package:chopnow_restaurant/views/home/widgets/orders/preparing.dart';
 import 'package:chopnow_restaurant/views/home/widgets/orders/ready_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../../models/login_response_model.dart';
 import 'widgets/home_tabs.dart';
 import 'widgets/home_tiles.dart';
 
@@ -29,6 +34,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       TabController(length: orderList.length, vsync: this);
   @override
   Widget build(BuildContext context) {
+    LoginResponseModel? user;
+    final controller = Get.put(LoginController());
+
+    final box = GetStorage();
+    String? token = box.read('token');
+
+    if (token != null) {
+      user = controller.getUserInfo();
+
+      print(user!.email);
+    }
+
+    if (token == null) {
+      return const LoginPage();
+    }
+    // if (user != null && user.verification == false) {
+    //   return const VerificationPage();
+    // }
     return Scaffold(
       backgroundColor: Tcolor.white,
       appBar: AppBar(
@@ -63,11 +86,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   NewOrders(),
                   Preparing(),
                   ReadyOrders(),
-                 PickedOrders(),
+                  PickedOrders(),
                   Deliveries(),
                   DeliveredOrders(),
                   CancelledOrders()
-                  
                 ],
               ),
             )

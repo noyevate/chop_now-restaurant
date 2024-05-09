@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ReuseableText extends StatelessWidget {
   final String title;
   final TextStyle style;
+  final TextAlign? textAlign;
 
   const ReuseableText({
     Key? key,
     required this.title,
     required this.style,
+    this.textAlign
   }) : super(key: key);
 
   @override
@@ -15,7 +17,7 @@ class ReuseableText extends StatelessWidget {
     return Text(
       title,
       style: style,
-      textAlign: TextAlign.left,
+      textAlign: textAlign ?? TextAlign.left,
     );
   }
 }

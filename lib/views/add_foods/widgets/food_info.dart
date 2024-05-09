@@ -200,9 +200,20 @@ class FoodInfo extends StatelessWidget {
                     btnWidth: width / 2.3),
               ],
             ),
+          ),
+          SizedBox(
+            height: 30.h
+          ),
+          Container(
+            height: 10,
+            width: width,
+            child: Column(children: [Container(height: 30.h, color: Colors.black26,)]),
           )
         ],
+        
       ),
+
+      
     );
   }
 }
