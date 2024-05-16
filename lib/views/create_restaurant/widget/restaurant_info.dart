@@ -109,17 +109,17 @@ class RestaurantInfo extends StatelessWidget {
                     title: "Next",
                     btnColor: Tcolor.Secondary,
                     onTap: () {
-                      // if (time.text.isEmpty &&
-                      //     title.text.isEmpty &&
-                      //     phone.text.isEmpty) {
-                      //   Get.snackbar("Complete all information", "You're required to fill all thre nformation before proceeding",
-                      //       colorText: Tcolor.white,
-                      //       duration: const Duration(seconds: 3),
-                      //       backgroundColor: Tcolor.Secondary,
-                      //       icon: const Icon(Icons.error_outline));
-                      // } else {
+                      if (time.text.isEmpty &&
+                          title.text.isEmpty &&
+                          phone.text.isEmpty && owner.text.isEmpty) {
+                        Get.snackbar("Complete all information", "You're required to fill all thre nformation before proceeding",
+                            colorText: Tcolor.white,
+                            duration: const Duration(seconds: 3),
+                            backgroundColor: Tcolor.Secondary,
+                            icon: const Icon(Icons.error_outline));
+                      } else {
                          next();
-                      // }
+                      }
                       
                     },
                     btnWidth: width / 2.3),

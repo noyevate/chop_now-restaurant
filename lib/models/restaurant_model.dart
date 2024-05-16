@@ -11,6 +11,7 @@ String restaurantModelToJson(RestaurantModel data) => json.encode(data.toJson())
 
 class RestaurantModel {
     final String title;
+    final String userId;
     final String time;
     final String imageUrl;
     final String owner;
@@ -20,6 +21,7 @@ class RestaurantModel {
 
     RestaurantModel({
         required this.title,
+        required this.userId,
         required this.time,
         required this.imageUrl,
         required this.owner,
@@ -30,6 +32,7 @@ class RestaurantModel {
 
     factory RestaurantModel.fromJson(Map<String, dynamic> json) => RestaurantModel(
         title: json["title"],
+        userId: json["userId"],
         time: json["time"],
         imageUrl: json["imageUrl"],
         owner: json["owner"],
@@ -40,6 +43,7 @@ class RestaurantModel {
 
     Map<String, dynamic> toJson() => {
         "title": title,
+        "userId": userId,
         "time": time,
         "imageUrl": imageUrl,
         "owner": owner,

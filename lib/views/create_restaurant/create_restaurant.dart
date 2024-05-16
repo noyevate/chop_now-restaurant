@@ -3,15 +3,22 @@ import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/reusable_text.dart';
 import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/controlllers/location_controller.dart.dart';
+import 'package:chopnow_restaurant/controlllers/login_controller.dart';
 import 'package:chopnow_restaurant/controlllers/restaurant_controller.dart';
+import 'package:chopnow_restaurant/controlllers/signup_controller.dart';
 import 'package:chopnow_restaurant/controlllers/uploader_controller.dart';
+import 'package:chopnow_restaurant/models/login_response_model.dart';
 import 'package:chopnow_restaurant/models/restaurant_model.dart';
+import 'package:chopnow_restaurant/views/auth/login_page.dart';
 import 'package:chopnow_restaurant/views/create_restaurant/widget/coord_info.dart';
 import 'package:chopnow_restaurant/views/create_restaurant/widget/restaurant_image.dart';
 import 'package:chopnow_restaurant/views/create_restaurant/widget/restaurant_info.dart';
+import 'package:chopnow_restaurant/views/restaurant/widget/restaurant_dashbord.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+
 
 class CreateRestaurant extends StatefulWidget {
   const CreateRestaurant({super.key});
@@ -22,7 +29,7 @@ class CreateRestaurant extends StatefulWidget {
 
 class _CreateRestaurantState extends State<CreateRestaurant> {
   final PageController _pageController = PageController();
-  final TextEditingController title = TextEditingController();
+  final TextEditingController Title = TextEditingController();
   final TextEditingController time = TextEditingController();
   //final TextEditingController price = TextEditingController();
   final TextEditingController phone = TextEditingController();
@@ -41,7 +48,7 @@ class _CreateRestaurantState extends State<CreateRestaurant> {
   @override
   void dispose() {
     _pageController.dispose();
-    title.dispose();
+    Title.dispose();
     owner.dispose();
     time.dispose();
     phone.dispose();
@@ -54,9 +61,28 @@ class _CreateRestaurantState extends State<CreateRestaurant> {
 
   @override
   Widget build(BuildContext context) {
+        final box = GetStorage();
+
     final controller = Get.put(UploaderController());
+    final signUpController = Get.put(RegistrationController());
     final locationController = Get.put(LocationController());
     final restaurantConroller = Get.put(RestaurantController());
+
+    LoginResponseModel? user;
+    final loginController = Get.put(LoginController());
+
+    String? token = box.read('token');
+
+    if (token != null) {
+      user = loginController.getUserInfo();
+    }
+
+    if (token == null) {
+      return const LoginPage();
+    }
+    // if (user != null && user.verification == false) {
+    //   //return const VerificationPage();
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -101,7 +127,7 @@ class _CreateRestaurantState extends State<CreateRestaurant> {
                         duration: const Duration(milliseconds: 800),
                         curve: Curves.easeIn);
                   },
-                  title: title,
+                  title: Title,
                   time: time,
                   phone: phone,
                   owner: owner,
@@ -119,55 +145,60 @@ class _CreateRestaurantState extends State<CreateRestaurant> {
                   },
                 ),
                 CoordInfo(
-                  back: () {
-                    _pageController.previousPage(
-                        duration: const Duration(milliseconds: 800),
-                        curve: Curves.easeIn);
-                  },
-                  address: address,
-                  coordLatitude: coordLatitude,
-                  coordLongitude: coordLongitude,
-                  coordTitle: coordTitle,
-                  onSubmit: () {
-                    try {
-                      if (coordTitle.text.isNotEmpty &&
-                          coordLongitude.text.isNotEmpty &&
-                          coordLatitude.text.isNotEmpty &&
-                          address.text.isNotEmpty &&
-                          title.text.isNotEmpty &&
-                          time.text.isNotEmpty &&
-                          controller.imageOneUrl.isNotEmpty &&
-                          phone.text.isNotEmpty &&
-                          controller.imageTwoUrl.isNotEmpty &&
-                          owner.text.isNotEmpty) {
-                        double latitude = double.parse(coordLatitude.text);
-                        double longitude = double.parse(coordLongitude.text);
-                        RestaurantModel model = RestaurantModel(
-                            title: title.text,
-                            time: time.text,
-                            imageUrl: controller.imageOneUrl,
-                            code: phone.text,
-                            logoUrl: controller.imageTwoUrl,
-                            owner: owner.text,
-                            coords: Coords(
-                                id: locationController.coordGenerateId(),
-                                latitude: latitude,
-                                longitude: longitude,
-                                address: address.text,
-                                title: coordTitle.text));
-                        String data = restaurantModelToJson(model);
-                        restaurantConroller.createRestaurant(data);
-                      
-                      } else {
+                    back: () {
+                      _pageController.previousPage(
+                          duration: const Duration(milliseconds: 800),
+                          curve: Curves.easeIn);
+                    },
+                    address: address,
+                    coordLatitude: coordLatitude,
+                    coordLongitude: coordLongitude,
+                    coordTitle: coordTitle,
+                    onSubmit: () async{
+                      try {
+                        if (coordTitle.text.isNotEmpty &&
+                            coordLongitude.text.isNotEmpty &&
+                            coordLatitude.text.isNotEmpty &&
+                            address.text.isNotEmpty &&
+                            Title.text.isNotEmpty &&
+                            time.text.isNotEmpty &&
+                            controller.imageOneUrl.isNotEmpty &&
+                            phone.text.isNotEmpty &&
+                            controller.imageTwoUrl.isNotEmpty &&
+                            owner.text.isNotEmpty) {
+                          double latitude = double.parse(coordLatitude.text);
+                          double longitude = double.parse(coordLongitude.text);
+                          RestaurantModel model = RestaurantModel(
+                              title: Title.text,
+                              userId: user!.id,
+                              time: time.text,
+                              imageUrl: controller.imageOneUrl,
+                              code: phone.text,
+                              logoUrl: controller.imageTwoUrl,
+                              owner: owner.text,
+                              coords: Coords(
+                                  id: locationController.coordGenerateId(),
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  address: address.text,
+                                  title: coordTitle.text));
+                          String data = restaurantModelToJson(model);
+                          restaurantConroller.createRestaurant(data);
+                         
+                          //var restaurantId = await restaurantConroller.fetchRestaurantId(model.title.toString());
+                          //print("restaurantId: $restaurantId");
+                           
+                          Get.to(() => RestaurantDashbord());
+                        } else {}
+                      } catch (e) {
+                        debugPrint(e.toString());
                       }
-                    } catch (e) {
-                      debugPrint(e.toString());
-                    }
-                  
-                  }, onClosePageView: (){
-                    Navigator.of(context).pop();
-                  }
-                ),
+                    },
+                    onClosePageView: () {
+                      Navigator.of(context).pop();
+                }),
+
+                    
               ],
             ),
           ),

@@ -141,15 +141,15 @@ class RestaurantImage extends StatelessWidget {
                           title: "Next",
                           btnColor: Tcolor.Secondary,
                           onTap: () {
-                            // if (controller.images.length = 2) {
-                            //   next();
-                            // } else {
-                            //   Get.snackbar("Upload the required images",
-                            //       "Please upload at least two images",
-                            //       colorText: Tcolor.white,
-                            //       backgroundColor: Tcolor.Secondary,
-                            //       snackPosition: SnackPosition.TOP);
-                            // }
+                            if (controller.images.length >= 2) {
+                              next();
+                            } else {
+                              Get.snackbar("Upload the required images",
+                                  "Please upload at least two images",
+                                  colorText: Tcolor.white,
+                                  backgroundColor: Tcolor.Secondary,
+                                  snackPosition: SnackPosition.TOP);
+                            }
                             next();
                           },
                           btnWidth: width / 2.3),

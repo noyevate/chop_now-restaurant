@@ -2,6 +2,8 @@
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/models/api_error_model.dart';
+import 'package:chopnow_restaurant/models/restaurant_model.dart';
+import 'package:chopnow_restaurant/models/restaurant_respons_model.dart';
 import 'package:chopnow_restaurant/models/success_model.dart';
 import 'package:chopnow_restaurant/views/create_restaurant/create_restaurant.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class RegistrationController extends GetxController {
             backgroundColor: Tcolor.primary,
             icon: const Icon(Ionicons.fast_food_outline));
             
-        Get.to(() => const CreateRestaurant());
+        //Get.to(() => const CreateRestaurant());
          
       } else {
         var error = apiErrorFromJson(response.body);
@@ -56,4 +58,6 @@ class RegistrationController extends GetxController {
       debugPrint(e.toString());
     }
   }
+  
+  
 }
