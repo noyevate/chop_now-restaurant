@@ -11,7 +11,11 @@ import 'package:get/get.dart';
 
 class AdditiveInfo extends StatelessWidget {
   const AdditiveInfo(
-      {super.key, required this.additiveTitle, required this.additivePrice});
+      {super.key, required this.additiveTitle, required this.additivePrice, required this.back, required this.onSubmit});
+
+      final Function back;
+  final Function onSubmit;
+  
 
   final TextEditingController additiveTitle;
   final TextEditingController additivePrice;
@@ -145,6 +149,33 @@ class AdditiveInfo extends StatelessWidget {
                     },
                     btnWidth: width,
                   ),
+
+                  SizedBox(
+                      height: 50.h,
+                    ),
+
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomButton(
+                          title: "Back",
+                          btnColor: Tcolor.Secondary,
+                          onTap: () {
+                            back();
+                          },
+                          btnWidth: width / 2.3,
+                        ),
+                        CustomButton(
+                            title: "Submit",
+                            btnColor: Tcolor.Secondary,
+                            onTap: () {
+                              
+                              onSubmit();
+                              
+                            },
+                            btnWidth: width / 2.3),
+                      ],
+                    )
                 ],
               ),
             ),

@@ -336,3 +336,41 @@ List <Map<String, dynamic>> foods = [
   },
 ];
 
+List <dynamic> order = [
+  {
+  "userId": "605c72ef1e0a2b36b8bafb75",
+  "orderItems": [
+    {
+      "foodId": "604c95df1c27a538b8a2b7a4",
+      "quantity": 2,
+      "price": 12.99,
+      "additives": ["extra cheese", "bacon"],
+      "instruction": "No onions"
+    },
+    {
+      "foodId": "604c95df1c27a538b8a2b7a5",
+      "quantity": 1,
+      "price": 8.99,
+      "additives": [],
+      "instruction": ""
+    }
+  ],
+  "orderTotal": 34.97,
+  "deliveryFee": 4.99,
+  "grandTotal": 39.96,
+  "deliveryAddress": "605c7e3a9f1b9b35b8bafa12",
+  "restaurantAddress": "123 Main St, Springfield",
+  "paymentMethod": "Credit Card",
+  "orderStatus": "Pending",
+  "restaurantId": "605c7e3a9f1b9b35b8bafa34",
+  "restaurantCoords": [40.730610, -73.935242],
+  "recipientCoords": [40.712776, -74.005974],
+  "driverId": "605c72ef1e0a2b36b8bafb90",
+  "rating": 4,
+  "feedback": "Great service!",
+  "PromoCode": "SPRINGSALE20",
+  "discountAmount": 5.00,
+  "notes": "Please deliver to the back door."
+}
+];
+

@@ -188,7 +188,7 @@ class _CreateRestaurantState extends State<CreateRestaurant> {
                           //var restaurantId = await restaurantConroller.fetchRestaurantId(model.title.toString());
                           //print("restaurantId: $restaurantId");
                            
-                          Get.to(() => RestaurantDashbord());
+                          //Get.to(() => RestaurantDashbord());
                         } else {}
                       } catch (e) {
                         debugPrint(e.toString());

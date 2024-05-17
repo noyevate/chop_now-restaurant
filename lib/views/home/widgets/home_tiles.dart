@@ -13,6 +13,7 @@ class HomeTiles extends StatelessWidget {
   const HomeTiles({
     super.key,
   });
+  
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,8 @@ class HomeTiles extends StatelessWidget {
 
               HomeTile(
               onTap: () {
-                Get.to(() => const RestaurantPage());
+                Get.to(() => const RestaurantPage(), transition: Transition.fadeIn,
+                    duration: const Duration(milliseconds: 900));
               },
               title: "Restaurant",
               iconPath:"assets/img/restaurant-store-svgrepo-com.svg" ),

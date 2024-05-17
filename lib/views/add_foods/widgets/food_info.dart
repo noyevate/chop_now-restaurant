@@ -30,189 +30,178 @@ class FoodInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FoodController());
-    return SizedBox(
-      height: height,
-      child: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 32.w, top: 24.h, bottom: 12.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ReuseableText(
-                  title: "Add Details",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Tcolor.gray,
-                      fontWeight: FontWeight.w600),
-                ),
-                ReuseableText(
-                  title:
-                      "You're required to fill all neccesary infomation to proceed.",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Tcolor.gray,
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
-            ),
+    return ListView(
+      scrollDirection: Axis.vertical,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 32.w, top: 24.h, bottom: 12.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ReuseableText(
+                title: "Add Details",
+                style: TextStyle(
+                    fontSize: 24.sp,
+                    color: Tcolor.gray,
+                    fontWeight: FontWeight.w600),
+              ),
+              ReuseableText(
+                title:
+                    "You're required to fill all neccesary infomation to proceed.",
+                style: TextStyle(
+                    fontSize: 24.sp,
+                    color: Tcolor.gray,
+                    fontWeight: FontWeight.normal),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CustomTextField(
+                controller: title,
+                hintText: "Title.",
+                prefixIcon: const Icon(Icons.keyboard_sharp),
+              ),
+              SizedBox(
+                height: 35.h,
+              ),
+              CustomTextField(
+                controller: description,
+                hintText: "Add food description.",
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
+                prefixIcon: const Icon(Icons.keyboard_sharp),
+              ),
+              SizedBox(
+                height: 35.h,
+              ),
+              CustomTextField(
+                controller: preparation,
+                hintText: "Food preparation time, e.g 10min..",
+                prefixIcon: const Icon(Icons.keyboard_sharp),
+              ),
+              SizedBox(
+                height: 35.h,
+              ),
+              CustomTextField(
+                controller: price,
+                hintText: "Price",
+                keyboardType: TextInputType.number,
+                prefixIcon: const Icon(Icons.money_sharp),
+              ),
+              SizedBox(
+                height: 35.h,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 32.w, top: 24.h, bottom: 12.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ReuseableText(
+                title: "Add Food Tags",
+                style: TextStyle(
+                    fontSize: 24.sp,
+                    color: Tcolor.gray,
+                    fontWeight: FontWeight.w600),
+              ),
+              ReuseableText(
+                title:
+                    "Fill required info accurately; food tags help in search.",
+                style: TextStyle(
+                    fontSize: 24.sp,
+                    color: Tcolor.gray,
+                    fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Obx(
+            () => Column(
               children: [
                 CustomTextField(
-                  controller: title,
-                  hintText: "Title.",
-                  prefixIcon: const Icon(Icons.keyboard_sharp),
+                  controller: types,
+                  hintText:
+                      "Breakfast / Lunch / Dinner / Owanbe / Snacks / Beverage",
+                  keyboardType: TextInputType.text,
+                  prefixIcon: const Icon(Icons.fastfood_sharp),
                 ),
                 SizedBox(
-                  height: 35.h,
+                  height: 25.h,
                 ),
-                CustomTextField(
-                  controller: description,
-                  hintText: "Add food description.",
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 5,
-                  prefixIcon: const Icon(Icons.keyboard_sharp),
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                CustomTextField(
-                  controller: preparation,
-                  hintText: "Food preparation time, e.g 10min..",
-                  prefixIcon: const Icon(Icons.keyboard_sharp),
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-                CustomTextField(
-                  controller: price,
-                  hintText: "Amount",
-                  keyboardType: TextInputType.number,
-                  prefixIcon: const Icon(Icons.money_sharp),
-                ),
-                SizedBox(
-                  height: 35.h,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 32.w, top: 24.h, bottom: 12.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ReuseableText(
-                  title: "Add Food Types",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Tcolor.gray,
-                      fontWeight: FontWeight.w600),
-                ),
-                ReuseableText(
-                  title:
-                      "Fill required info accurately; food types help in search.",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      color: Tcolor.gray,
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Obx(
-              () => Column(
-                children: [
-                  CustomTextField(
-                    controller: types,
-                    hintText:
-                        "Breakfast / Lunch / Dinner / Owanbe / Snacks / Beverage",
-                    keyboardType: TextInputType.text,
-                    prefixIcon: const Icon(Icons.fastfood_sharp),
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  controller.types.isNotEmpty
-                      ? Row(
-                          children: List.generate(controller.types.length, (i) {
-                            return Container(
-                              margin: EdgeInsets.only(right: 10.w),
-                              decoration: BoxDecoration(
-                                color: Tcolor.Secondary,
-                                borderRadius: BorderRadius.circular(15.r),
-                              ),
-                              child: Center(
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
-                                  child: ReuseableText(
-                                    title: controller.types[i],
-                                    style: TextStyle(
-                                        fontSize: 22.sp,
-                                        color: Tcolor.white,
-                                        fontWeight: FontWeight.normal),
-                                  ),
+                controller.types.isNotEmpty
+                    ? Row(
+                        children: List.generate(controller.types.length, (i) {
+                          return Container(
+                            margin: EdgeInsets.only(right: 10.w),
+                            decoration: BoxDecoration(
+                              color: Tcolor.Secondary,
+                              borderRadius: BorderRadius.circular(15.r),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.symmetric(horizontal: 10.w),
+                                child: ReuseableText(
+                                  title: controller.types[i],
+                                  style: TextStyle(
+                                      fontSize: 22.sp,
+                                      color: Tcolor.white,
+                                      fontWeight: FontWeight.normal),
                                 ),
                               ),
-                            );
-                          }),
-                        )
-                      : const SizedBox.shrink(),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  CustomButton(
-                    title: "Add food Type",
-                    onTap: () {
-                      controller.setTypes = types.text;
-                      types.text = "";
-                    },
-                    raduis: 12.r,
-                  )
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomButton(
-                  title: "Back",
-                  btnColor: Tcolor.Secondary,
-                  onTap: () {
-                    back();
-                  },
-                  btnWidth: width / 2.3,
+                            ),
+                          );
+                        }),
+                      )
+                    : const SizedBox.shrink(),
+                SizedBox(
+                  height: 20.h,
                 ),
                 CustomButton(
-                    title: "Next",
-                    btnColor: Tcolor.Secondary,
-                    onTap: () {
-                      next();
-                    },
-                    btnWidth: width / 2.3),
+                  title: "Add food Type",
+                  onTap: () {
+                    controller.setTypes = types.text;
+                    types.text = "";
+                  },
+                  raduis: 12.r,
+                )
               ],
             ),
           ),
-          SizedBox(
-            height: 30.h
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomButton(
+                title: "Back",
+                btnColor: Tcolor.Secondary,
+                onTap: () {
+                  back();
+                },
+                btnWidth: width / 2.3,
+              ),
+              CustomButton(
+                  title: "Next",
+                  btnColor: Tcolor.Secondary,
+                  onTap: () {
+                    next();
+                  },
+                  btnWidth: width / 2.3),
+            ],
           ),
-          Container(
-            height: 10,
-            width: width,
-            child: Column(children: [Container(height: 30.h, color: Colors.black26,)]),
-          )
-        ],
+        ),
         
-      ),
-
+      ],
       
     );
   }

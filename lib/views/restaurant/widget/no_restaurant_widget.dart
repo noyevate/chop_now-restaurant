@@ -1,3 +1,4 @@
+import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/custom_button.dart';
 import 'package:chopnow_restaurant/common/reusable_text.dart';
 import 'package:chopnow_restaurant/common/size.dart';
@@ -19,7 +20,7 @@ class NoRestaurantWidget extends StatelessWidget {
         children: [
           ReuseableText(
             title: "No restaurant found..",
-            style: TextStyle(fontSize: 25.sp),
+            style: TextStyle(fontSize: 25.sp, color: Tcolor.gray),
           ),
           SizedBox(height: 20.h),
           CustomButton(

@@ -1,9 +1,28 @@
 import 'dart:math';
 
+import 'package:chopnow_restaurant/common/color_extension.dart';
+import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/models/additive_model.dart';
+import 'package:chopnow_restaurant/models/api_error_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+
 
 class FoodController extends GetxController {
+
+  final box = GetStorage();
+  RxBool _isLoading = false.obs;
+
+  bool get isLoading =>_isLoading.value;
+
+  set setLoading(bool value) {
+    _isLoading.value = value;
+  }
+
+  
   String _category = "";
   String get category => _category;
 
@@ -37,6 +56,82 @@ class FoodController extends GetxController {
   void clearAdditives() {
     _additiveList.clear();
   }
+
+
+  Future<bool> addFood(String data) async{
+    setLoading = true;
+    String accessToken = box.read("token");
+
+    var url = Uri.parse("$appBaseUrl/api/foods");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      var response = await http.post(url, headers: headers, body: data);
+      print(response.body);
+      if (response.statusCode == 201) {
+        setLoading = false;
+        Get.snackbar("Food Created Successfully",
+            "Bon appétit! Get ready to savor tasty treats with us.",
+            colorText: Tcolor.Text,
+            duration: const Duration(seconds: 2),
+            backgroundColor: Tcolor.primary,
+            icon: const Icon(Ionicons.fast_food_outline));
+
+        return true;
+      } else {
+        var error = apiErrorFromJson(response.body);
+        Get.snackbar("Process Unsuccessful", error.message,
+            colorText: Tcolor.white,
+            duration: const Duration(seconds: 2),
+            
+            backgroundColor: Tcolor.red,
+            icon: const Icon(Icons.error_outline));
+            return false;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    } finally {
+      setLoading = false;
+    }
+  }
+
+
+  Future<bool> getFood(String foodId) async{
+    setLoading = true;
+    String accessToken = box.read("token");
+
+    var url = Uri.parse("$appBaseUrl/api/foods/$foodId");
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    try {
+      var response = await http.get(url, headers: headers,);
+      print(response.body);
+      if (response.statusCode == 200) {
+        
+
+        return true;
+      } else {
+        var error = apiErrorFromJson(response.body);
+        debugPrint(error.toString());
+        
+            return false;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    } finally {
+      setLoading = false;
+    }
+  }
+
+
+
+
 
 
 }

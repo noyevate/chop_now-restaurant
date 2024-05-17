@@ -43,6 +43,9 @@ class RestaurantController extends GetxController {
             backgroundColor: Tcolor.primary,
             icon: const Icon(Ionicons.fast_food_outline));
 
+
+            Get.to(() => HomePage());
+
         
       } else {
         var error = apiErrorFromJson(response.body);

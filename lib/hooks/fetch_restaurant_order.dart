@@ -1,22 +1,20 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
 
 
 import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/models/api_error_model.dart';
 import 'package:chopnow_restaurant/models/hook%20models/hook_result.dart';
-import 'package:chopnow_restaurant/models/hook%20models/restaurant_hook_model.dart';
-import 'package:chopnow_restaurant/models/restaurant_respons_model.dart';
+import 'package:chopnow_restaurant/models/order_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 
-FetchRestaurant useFetchRestaurant() {
+FetchHook useFetchRestaurantOrder(String restaurantId) {
   final box = GetStorage();
-  final restaurants = useState<List<RestaurantResponsModel>?>(null);
+  final restaurants = useState<List<OrderResponseModel>?>(null);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
   final apiError = useState<ApiError?>(null);
@@ -31,13 +29,13 @@ FetchRestaurant useFetchRestaurant() {
     isLoading.value = true;
 
     try {
-      final  url = Uri.parse("$appBaseUrl/api/restaurant");    
+      final  url = Uri.parse("$appBaseUrl/api/orders/$restaurantId");    
       print(url.toString());
       final response = await http.get(url, headers: headers);
-      print("useFetchRestaurant: ${response.body}");
+      print("useFetchRestaurantOrder: ${response.body}");
       if(response.statusCode == 200){
        
-        restaurants.value = restaurantResponsModelFromJson(response.body);
+        restaurants.value = orderResponseModelFromJson(response.body);
       } else {
         apiError.value = apiErrorFromJson(response.body);
       }
@@ -61,7 +59,7 @@ FetchRestaurant useFetchRestaurant() {
   }
 
 
-  return FetchRestaurant(
+  return FetchHook(
     data: restaurants.value, 
     isLoading: isLoading.value, 
     error: error.value, 

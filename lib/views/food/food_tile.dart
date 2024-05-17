@@ -1,15 +1,17 @@
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/reusable_text.dart';
 import 'package:chopnow_restaurant/common/size.dart';
+import 'package:chopnow_restaurant/models/food_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FoodTile extends StatelessWidget {
   const FoodTile({super.key, required this.food});
-  final Map<String, dynamic> food;
+  final FoodResponseModel food;
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
       child: Container(
@@ -29,8 +31,8 @@ class FoodTile extends StatelessWidget {
                     height: 124.h,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24.r),
-                      child: Image.asset(
-                        food['image'],
+                      child: Image.network(
+                        food.imageUrl[0],
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -44,14 +46,14 @@ class FoodTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ReuseableText(
-                      title: food['name'],
+                      title: food.title,
                       style: TextStyle(
                           fontSize: 22.sp,
                           fontWeight: FontWeight.w600,
                           color: Tcolor.Text),
                     ),
                     ReuseableText(
-                      title: "Delivery time: ${food['time']}",
+                      title: "Delivery time: ${food.time}",
                       style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w400,
@@ -62,9 +64,9 @@ class FoodTile extends StatelessWidget {
                       width: width * 0.7,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: food['additives'].length,
+                          itemCount: food.additive.length,
                           itemBuilder: (context, i) {
-                            String title = food['additives'][i]['title'];
+                            var additives = food.additive[i];
                             return Container(
                               margin: EdgeInsets.only(right: 10.w),
                               decoration: BoxDecoration(
@@ -75,7 +77,7 @@ class FoodTile extends StatelessWidget {
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 8.w),
                                   child: ReuseableText(
-                                    title: title,
+                                    title: additives.title,
                                     style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.w400,
@@ -100,7 +102,7 @@ class FoodTile extends StatelessWidget {
                     color: Tcolor.Secondary,
                     borderRadius: BorderRadius.circular(12.r)),
                 child: ReuseableText(
-                  title: "\u20A6 ${food["price"].toString()}",
+                  title: "\u20A6 ${food.price.toString()}",
                   style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.bold,

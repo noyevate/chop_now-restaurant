@@ -4,7 +4,6 @@ import 'package:chopnow_restaurant/common/dashboard_text.dart';
 import 'package:chopnow_restaurant/common/reusable_text.dart';
 import 'package:chopnow_restaurant/common/row_text_widget.dart';
 import 'package:chopnow_restaurant/common/size.dart';
-import 'package:chopnow_restaurant/common/uidata.dart';
 import 'package:chopnow_restaurant/models/restaurant_respons_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +20,6 @@ class ResturantWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Restaurant: $restaurants[0]");
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(children: [
@@ -116,7 +114,11 @@ class ResturantWidget extends StatelessWidget {
           SizedBox(
             height: 30.h,
           ),
-          RowText(first: "RestaurantId", second: restaurant[0].userId),
+          RowText(first: "RestaurantId", second: restaurant[0].id),
+          SizedBox(
+            height: 30.h,
+          ),
+          RowText(first: "Manager Id", second: restaurant[0].userId),
           SizedBox(
             height: 30.h,
           ),
@@ -127,7 +129,7 @@ class ResturantWidget extends StatelessWidget {
             height: 30.h,
           ),
           RowText(
-              first: "Restaurant Manager", second: restaurant[0].owner[0]),
+              first: "Restaurant Manager", second: restaurant[0].owner),
           SizedBox(
             height: 30.h,
           ),
