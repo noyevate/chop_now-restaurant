@@ -18,6 +18,7 @@ class OrderResponseModel {
     final String deliveryAddress;
     final String restaurantAddress;
     final String paymentMethod;
+    final String paymentStauts;
     final String orderStatus;
     final String restaurantId;
     final List<double> restaurantCoords;
@@ -41,6 +42,7 @@ class OrderResponseModel {
         required this.deliveryAddress,
         required this.restaurantAddress,
         required this.paymentMethod,
+        required this.paymentStauts,
         required this.orderStatus,
         required this.restaurantId,
         required this.restaurantCoords,
@@ -65,6 +67,7 @@ class OrderResponseModel {
         deliveryAddress: json["deliveryAddress"],
         restaurantAddress: json["restaurantAddress"],
         paymentMethod: json["paymentMethod"],
+        paymentStauts: json["paymentStatus"],
         orderStatus: json["orderStatus"],
         restaurantId: json["restaurantId"],
         restaurantCoords: List<double>.from(json["restaurantCoords"].map((x) => x?.toDouble())),
@@ -89,6 +92,7 @@ class OrderResponseModel {
         "deliveryAddress": deliveryAddress,
         "restaurantAddress": restaurantAddress,
         "paymentMethod": paymentMethod,
+        "paymentStatus": paymentStauts,
         "orderStatus": orderStatus,
         "restaurantId": restaurantId,
         "restaurantCoords": List<dynamic>.from(restaurantCoords.map((x) => x)),

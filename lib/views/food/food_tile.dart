@@ -97,16 +97,18 @@ class FoodTile extends StatelessWidget {
               top: 10.h,
               child: Container(
                 height: 38.h,
-                width: 90.w,
+                width: 150.w,
                 decoration: BoxDecoration(
                     color: Tcolor.Secondary,
                     borderRadius: BorderRadius.circular(12.r)),
-                child: ReuseableText(
-                  title: "\u20A6 ${food.price.toString()}",
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Tcolor.white),
+                child: Center(
+                  child: ReuseableText(
+                    title: "\u20A6 ${food.price.toString()}",
+                    style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Tcolor.white),
+                  ),
                 ),
               ),
             )

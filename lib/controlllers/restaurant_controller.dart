@@ -1,11 +1,11 @@
 
 
+// ignore_for_file: prefer_final_fields
+
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/models/api_error_model.dart';
-import 'package:chopnow_restaurant/models/restaurant_respons_model.dart';
 import 'package:chopnow_restaurant/views/home/homePage.dart';
-import 'package:chopnow_restaurant/views/restaurant/widget/restaurant_dashbord.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -33,7 +33,7 @@ class RestaurantController extends GetxController {
     };
     try {
       var response = await http.post(url, headers: headers, body: data);
-      print(response.reasonPhrase);
+      
       if (response.statusCode == 201) {
         setLoading = false;
         Get.snackbar("Restaurant created Successfully",
@@ -44,7 +44,9 @@ class RestaurantController extends GetxController {
             icon: const Icon(Ionicons.fast_food_outline));
 
 
-            Get.to(() => HomePage());
+            Get.offAll(() => const HomePage(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 900));
 
         
       } else {

@@ -1,14 +1,18 @@
+// ignore_for_file: prefer_final_fields
 
 import 'dart:convert';
 
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/size.dart';
+import 'package:chopnow_restaurant/controlllers/save_restaurant_id.dart';
+import 'package:chopnow_restaurant/hooks/fetch_restaurant.dart';
 import 'package:chopnow_restaurant/models/api_error_model.dart';
 import 'package:chopnow_restaurant/models/login_response_model.dart';
+import 'package:chopnow_restaurant/models/restaurant_respons_model.dart';
 import 'package:chopnow_restaurant/views/auth/login_page.dart';
 import 'package:chopnow_restaurant/views/home/homePage.dart';
-import 'package:chopnow_restaurant/views/home/logout_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -46,45 +50,39 @@ class LoginController extends GetxController {
         setLoading = false;
         if (data.userType == "Vendor") {
           Get.snackbar("You are successfully logged in",
-            "Bon appétit! you're welcome again.",
-            colorText: Tcolor.Text,
-            duration: const Duration(seconds: 3),
-            backgroundColor: Tcolor.primary,
-            icon: const Icon(Ionicons.fast_food_outline));
-          Get.offAll(() => HomePage(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 900));
+              "Bon appétit! you're welcome again.",
+              colorText: Tcolor.Text,
+              duration: const Duration(seconds: 3),
+              backgroundColor: Tcolor.primary,
+              icon: const Icon(Ionicons.fast_food_outline));
+          
+          Get.offAll(() => const HomePage(),
+              transition: Transition.fade,
+              duration: const Duration(milliseconds: 900));
         } else {
-          Get.snackbar("Failed to Login",
-            "Somethin went wrong!",
-            colorText: Tcolor.white,
-            duration: const Duration(seconds: 3),
-            backgroundColor: Tcolor.red,
-            icon: const Icon(Icons.error_outline));
+          Get.snackbar("Failed to Login", "Somethin went wrong!",
+              colorText: Tcolor.white,
+              duration: const Duration(seconds: 3),
+              backgroundColor: Tcolor.red,
+              icon: const Icon(Icons.error_outline));
         }
       } else {
         var error = apiErrorFromJson(response.body);
-        Get.snackbar("Failed to Login",
-            error.message,
+        Get.snackbar("Failed to Login", error.message,
             colorText: Tcolor.white,
             duration: const Duration(seconds: 3),
             backgroundColor: Tcolor.red,
             icon: const Icon(Icons.error_outline));
-            
       }
 
-        
+      // if (data.verification == false) {
+      //   Get.offAll(() => const VerificationPage(),
+      //   transition: Transition.fade,
+      //   duration: const Duration(milliseconds: 900));
+      // }
+      // if (data.userType) {
 
-        // if (data.verification == false) {
-        //   Get.offAll(() => const VerificationPage(),
-        //   transition: Transition.fade,
-        //   duration: const Duration(milliseconds: 900));
-        // }
-        // if (data.userType) {
-          
-        // }
-        
-        
+      // }
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -92,13 +90,14 @@ class LoginController extends GetxController {
 
   void logout() {
     box.erase();
-    Get.offAll(() => const LoginPage(),
-          transition: Transition.fade,
-          duration: const Duration(milliseconds: 900),);
+    Get.offAll(
+      () => const LoginPage(),
+      transition: Transition.fade,
+      duration: const Duration(milliseconds: 900),
+    );
   }
 
-  LoginResponseModel? getUserInfo()
-  {
+  LoginResponseModel? getUserInfo() {
     String? userId = box.read('userId');
     String? data;
     if (userId != null) {
@@ -111,8 +110,3 @@ class LoginController extends GetxController {
     return null;
   }
 }
-
-
-
-
-

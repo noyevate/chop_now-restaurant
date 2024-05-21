@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class Tcolor{
-  static Color get primary => Color.fromARGB(255, 225, 179, 62);
+  static Color get primary => const Color.fromARGB(255, 225, 179, 62);
   static Color get primaryText => const Color(0xff000000);
   static Color get secondaryText => const Color(0xff9C9891);
   static Color get textField => const Color(0xffDBCDB2);
@@ -16,5 +16,6 @@ class Tcolor{
  static Color get tertiaryBlue => const Color(0xff0078a6);
   static Color get Secondary => const Color(0xff30b9b2);
   static Color get gray => const Color(0xff808080);
-  static Color get additiveHolder => Color.fromARGB(255, 208, 206, 200);
+  static Color get additiveHolder => const Color.fromARGB(255, 208, 206, 200);
+  static Color get OrderDetails => const Color.fromARGB(255, 234, 233, 228);
 }

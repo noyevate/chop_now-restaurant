@@ -1,9 +1,12 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, prefer_final_fields
+
 import 'dart:math';
 
 import 'package:chopnow_restaurant/common/color_extension.dart';
 import 'package:chopnow_restaurant/common/size.dart';
 import 'package:chopnow_restaurant/models/additive_model.dart';
 import 'package:chopnow_restaurant/models/api_error_model.dart';
+import 'package:chopnow_restaurant/views/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -14,6 +17,7 @@ import 'package:http/http.dart' as http;
 class FoodController extends GetxController {
 
   final box = GetStorage();
+  
   RxBool _isLoading = false.obs;
 
   bool get isLoading =>_isLoading.value;
@@ -42,6 +46,7 @@ class FoodController extends GetxController {
     int min = 0;
     int max = 1000000;
 
+    // ignore: unused_local_variable
     final _random = Random();
     return min + Random().nextInt(max - min);
   }
@@ -69,7 +74,7 @@ class FoodController extends GetxController {
     };
     try {
       var response = await http.post(url, headers: headers, body: data);
-      print(response.body);
+     
       if (response.statusCode == 201) {
         setLoading = false;
         Get.snackbar("Food Created Successfully",
@@ -78,6 +83,10 @@ class FoodController extends GetxController {
             duration: const Duration(seconds: 2),
             backgroundColor: Tcolor.primary,
             icon: const Icon(Ionicons.fast_food_outline));
+
+            Get.offAll(() => const HomePage(),
+          transition: Transition.fade,
+          duration: const Duration(milliseconds: 900));
 
         return true;
       } else {
@@ -110,7 +119,7 @@ class FoodController extends GetxController {
     };
     try {
       var response = await http.get(url, headers: headers,);
-      print(response.body);
+      
       if (response.statusCode == 200) {
         
 

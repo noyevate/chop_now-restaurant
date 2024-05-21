@@ -12,8 +12,8 @@ List<String> orderList = [
   "New Orders",
   "Preparing",
   "Ready",
-  "Picked Up",
-  "Deliveries",
+  "Pick Up",
+  //"Self Deliveries",
   "Delivered",
   "Cancelled",
 ];
